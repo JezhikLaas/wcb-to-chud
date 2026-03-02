@@ -13,7 +13,7 @@ One-Click Synthesis: Once your participants are gathered, a single click ignites
 Modern Architecture: Fully implemented using the latest ApplicationV2 and HandlebarsApplicationMixin for a dry, efficient, and performant experience.
 
 📦 Installation
-Copy the Manifest URL: https://github.com/JezhikLaas/releases/latest/download/module.json
+Copy the Manifest URL: https://github.com/JezhikLaas/wcb-to-chud/releases/latest/download/module.json
 
 In the Foundry VTT Setup, go to Add-on Modules and click Install Module.
 
