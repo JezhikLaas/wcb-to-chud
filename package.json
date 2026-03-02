@@ -1,0 +1,16 @@
+{
+  "name": "wcb-chud-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --sourcemap --format=esm --target=es2020 --outfile=dist/module.js",
+    "watch": "esbuild src/index.ts --bundle --sourcemap --format=esm --target=es2020 --outfile=dist/module.js --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^13.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,74 @@
+# .github/workflows/release.yml
+name: Release Module
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Version aus dem Tag extrahieren (z.B. v0.1.0 -> 0.1.0)
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      # module.json mit korrekter download-URL patchen
+      - name: Patch module.json
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          TAG=${GITHUB_REF_NAME}
+          REPO=${{ github.repository }}
+
+          # Version im Manifest setzen
+          jq --arg v "$VERSION" '.version = $v' module.json > module.tmp && mv module.tmp module.json
+
+          # Download-URL setzen
+          jq --arg url "https://github.com/${REPO}/releases/download/${TAG}/module.zip" \
+            '.download = $url' module.json > module.tmp && mv module.tmp module.json
+
+          # Manifest-URL setzen (latest)
+          jq --arg url "https://github.com/${REPO}/releases/latest/download/module.json" \
+            '.manifest = $url' module.json > module.tmp && mv module.tmp module.json
+
+          cat module.json
+
+      # ZIP erstellen (nur was Foundry braucht)
+      - name: Create module.zip
+        run: |
+          zip -r module.zip \
+            module.json \
+            dist/ \
+            styles/ \
+            templates/ \
+            lang/
+
+      # GitHub Release erstellen + Assets hochladen
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            module.json
+            module.zip

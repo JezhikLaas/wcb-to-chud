@@ -1,0 +1,1 @@
+export const MODULE_ID = "wcb-chud-bridge";

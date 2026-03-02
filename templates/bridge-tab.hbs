@@ -1,0 +1,36 @@
+<section class="wcb-bridge-tab" data-tab="wcb-bridge">
+    <header class="directory-header">
+        <h2>WCB → Conversation HUD</h2>
+    </header>
+
+    <div class="wcb-participant-list">
+        {{#if hasParticipants}}
+            {{#each participants}}
+                <div class="wcb-participant" data-uuid="{{this.uuid}}">
+                    <img src="{{this.img}}" alt="{{this.name}}" width="36" height="36" />
+                    <div class="wcb-participant-info">
+                        <span class="wcb-participant-name">{{this.name}}</span>
+                        <span class="wcb-participant-type">{{this.typeName}}</span>
+                    </div>
+                    <button type="button"
+                            class="wcb-remove-btn"
+                            data-uuid="{{this.uuid}}"
+                            data-action="removeParticipant"
+                            title= {{localize "wcb-chud-bridge.sidebar.remove"}}>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            {{/each}}
+        {{else}}
+            <p class="wcb-empty-hint"><i class="fas fa-hand-pointer"></i> {{localize "wcb-chud-bridge.sidebar.empty"}}</p>
+        {{/if}}
+    </div>
+
+    {{#if hasParticipants}}
+        <footer class="wcb-actions">
+            <button type="button" class="wcb-create-btn" data-action="createConversation">
+                <i class="fas fa-comment-dots"></i> {{localize "wcb-chud-bridge.sidebar.create"}}
+            </button>
+        </footer>
+    {{/if}}
+</section>

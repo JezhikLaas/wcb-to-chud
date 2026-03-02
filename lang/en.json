@@ -1,0 +1,10 @@
+{
+  "wcb-chud-bridge": {
+    "sidebar": {
+      "title": "WCB → Conversation",
+      "empty": "Drop WCB characters here",
+      "create": "Create Conversation",
+      "remove": "Remove NPC"
+    }
+  }
+}
