@@ -4,7 +4,9 @@
       "title": "WCB → Conversation",
       "empty": "Ziehe WCB-Charaktere hierher",
       "create": "Conversation erstellen",
-      "remove": "NPC entfernen"
+      "remove": "NPC entfernen",
+      "invalid_type": "Der Eintrag \"{name}\" kann nicht für eine Unterhaltung verwendet werden.",
+      "already_in_list": "Der Eintrag \"{name}\" ist bereits in der Liste."
     }
   }
 }

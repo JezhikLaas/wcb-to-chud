@@ -1,9 +1,9 @@
 <section class="wcb-bridge-tab" data-tab="wcb-bridge">
     <header class="directory-header">
-        <h2>WCB → Conversation HUD</h2>
+        <h2>{{localize "wcb-chud-bridge.sidebar.title"}}</h2>
     </header>
 
-    <div class="wcb-participant-list">
+    <div class="wcb-participant-list wcb-bridge-drop-zone">
         {{#if hasParticipants}}
             {{#each participants}}
                 <div class="wcb-participant" data-uuid="{{this.uuid}}">
@@ -16,21 +16,27 @@
                             class="wcb-remove-btn"
                             data-uuid="{{this.uuid}}"
                             data-action="removeParticipant"
-                            title= {{localize "wcb-chud-bridge.sidebar.remove"}}>
+                            title="{{localize 'wcb-chud-bridge.sidebar.remove'}}">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
             {{/each}}
         {{else}}
-            <p class="wcb-empty-hint"><i class="fas fa-hand-pointer"></i> {{localize "wcb-chud-bridge.sidebar.empty"}}</p>
+            <div class="wcb-empty-container">
+                <p class="wcb-empty-hint">
+                    <i class="fas fa-hand-pointer"></i><br>
+                    {{localize "wcb-chud-bridge.sidebar.empty"}}
+                </p>
+            </div>
         {{/if}}
     </div>
 
-    {{#if hasParticipants}}
-        <footer class="wcb-actions">
-            <button type="button" class="wcb-create-btn" data-action="createConversation">
-                <i class="fas fa-comment-dots"></i> {{localize "wcb-chud-bridge.sidebar.create"}}
-            </button>
-        </footer>
-    {{/if}}
+    <footer class="wcb-actions">
+        <button type="button"
+                class="wcb-create-btn"
+                data-action="createConversation"
+                {{#unless hasParticipants}}disabled{{/unless}}>
+            <i class="fas fa-comment-dots"></i> {{localize "wcb-chud-bridge.sidebar.create"}}
+        </button>
+    </footer>
 </section>

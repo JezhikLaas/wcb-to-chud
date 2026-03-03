@@ -4,7 +4,9 @@
       "title": "WCB → Conversation",
       "empty": "Drop WCB characters here",
       "create": "Create Conversation",
-      "remove": "Remove NPC"
+      "remove": "Remove NPC",
+      "invalid_type": "The entry \"{name}\" cannot be added to a conversation.",
+      "already_in_list": "The entry \"{name}\" is already in the list."
     }
   }
 }

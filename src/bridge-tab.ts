@@ -22,11 +22,12 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
     static override DEFAULT_OPTIONS = {
         id: `{${MODULE_ID}-tab`,
         tag: "section",
+        classes: ["wcb-bridge-app-shell"],
         window: {
             frame: false
         },
         dragDrop: [{
-            dropSelector: ".wcb-participant-list"
+            dropSelector: ".wcb-bridge-tab"
         }],
         actions: {
             removeParticipant: WCBBridgeTab.#onRemoveParticipant,
@@ -137,6 +138,17 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
 
         if (data.type !== "JournalEntry" || !data.fcbData) return;
 
+        if (data.fcbData.topic !== 1 && data.fcbData.topic !== 4) {
+            if (game?.i18n) {
+                const warning = game.i18n.format("wcb-chud-bridge.sidebar.invalid_type", {
+                    name: data.fcbData.name
+                });
+                ui.notifications?.warn(warning);
+            }
+
+            return;
+        }
+
         const uuid = data.uuid ?? data.fcbData?.childId;
         if (!uuid) return;
 
@@ -180,22 +192,34 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
             return;
         }
 
-        const conversation = {
-            conversationData: {
-                type: "gm-controlled",
-                conversation: {
-                    data: {
-                        participants: Array.from(this.participants.values()).map(p => ({
-                            name: p.name,
-                            img: p.img,
-                            displayName: true
-                        }))
-                    },
-                    features: {
-                        isBackgroundVisible: true
+        let existing = chud.getConversation();
+        let activeConversation = undefined;
+        if (existing.activeConversation != undefined) {
+            activeConversation = existing.activeConversation.conversationData.conversation;
+            activeConversation.data.participants.push(...Array.from(this.participants.values()).map(p => ({
+                name: p.name,
+                img: p.img,
+                displayName: true
+            })));
+        }
+
+        const conversation = activeConversation != undefined
+            ? { conversationData: existing.activeConversation.conversationData  }
+            : { conversationData: {
+                    type: "gm-controlled",
+                    conversation: {
+                        data: {
+                            participants: Array.from(this.participants.values()).map(p => ({
+                                name: p.name,
+                                img: p.img,
+                                displayName: true
+                            }))
+                        },
+                        features: {
+                            isBackgroundVisible: true
+                        }
                     }
                 }
-            }
         };
 
         try {

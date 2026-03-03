@@ -6,16 +6,22 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #1a1a1a;
+}
+
+#wcb-bridge-sidebar.active .wcb-bridge-app-shell {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Füllt den Container komplett aus */
+    height: 100%;
 }
 
 #wcb-bridge-sidebar.active .wcb-bridge-tab {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100%;
     background-color: #1a1a1a;
-    background-image: none;
     color: #f0f0e0;
-    overflow-y: auto;
     padding: 8px;
 }
 
@@ -31,59 +37,49 @@
     text-align: center;
     letter-spacing: 1px;
 }
-.wcb-bridge-drop-zone {
-    border: 1px dashed #444;
-    border-radius: 4px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
-#wcb-chud-bridge-sidebar.wcb-drag-over {
-    outline: 2px dashed rgba(255, 200, 50, 0.6);
-    outline-offset: -4px;
-}
-
-.wcb-sidebar-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 6px;
-    gap: 6px;
-}
-
-.wcb-empty {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    opacity: 0.5;
-    text-align: center;
-    font-size: 13px;
-}
-
-.wcb-empty i {
-    font-size: 28px;
-}
 
 .wcb-participant-list {
     flex: 1;
-    overflow-y: auto;
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    overflow-y: auto;
+    /* Damit die Liste auch leer als Drop-Target fungiert */
+    min-height: 100px;
+}
+.wcb-participant-list {
+    flex: 1; /* Hier entsteht der Raum für die Drop-Zone */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    min-height: 50px; /* Sicherheit für die Drop-Erkennung */
+}
+
+.wcb-bridge-drop-zone.wcb-drag-over {
+    border-color: rgba(255, 200, 50, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.wcb-empty-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0.5;
+}
+.wcb-empty-hint i {
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
 .wcb-participant {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 4px 6px;
-    border-radius: 6px;
+    padding: 6px;
+    border-radius: 4px;
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -91,15 +87,16 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-.wcb-participant-img {
+.wcb-participant img {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border-radius: 4px;
     object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .wcb-participant-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -107,7 +104,7 @@
 
 .wcb-participant-name {
     font-size: 13px;
-    font-weight: 600;
+    font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -115,22 +112,48 @@
 
 .wcb-participant-type {
     font-size: 11px;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
-.wcb-sidebar-footer {
-    padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.wcb-actions {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid #444;
 }
 
 .wcb-create-btn {
     width: 100%;
-    padding: 6px;
-    font-size: 13px;
+    padding: 8px;
     cursor: pointer;
+    font-weight: bold;
+    background-color: #444;
+    color: #f0f0e0 !important;
+    border: 1px solid #666;
+    transition: all 0.2s ease;
 }
-
+.wcb-create-btn:hover:not(:disabled) {
+    background-color: #555;
+    color: #ffffff !important;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
 .wcb-create-btn:disabled {
     opacity: 0.4;
+    background-color: #222;
+    color: #888 !important;
+    border-color: #333;
     cursor: not-allowed;
+}
+
+.wcb-remove-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    opacity: 0.6;
+    padding: 4px 8px;
+}
+
+.wcb-remove-btn:hover {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
