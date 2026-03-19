@@ -5,8 +5,6 @@ A specialized bridge for Foundry VTT v13+, designed to connect your NPCs with th
 
 Dedicated Sidebar Tab: A custom-integrated tab within the Foundry VTT sidebar for easy access to your conversation queue.
 
-NPC-Only Border Control: Only Non-Player Characters are permitted to cross this bridge. Player characters, with their often overinflated egos, are politely but firmly redirected.
-
 Intuitive Drag & Drop: Simply drag NPCs from your Actors directory or Compendiums directly into the bridge.
 
 One-Click Synthesis: Once your participants are gathered, a single click ignites the Conversation HUD, clearing the bridge for the next encounter.
