@@ -2,7 +2,7 @@
   "id": "wcb-chud-bridge",
   "title": "WCB to Conversation HUD Bridge",
   "description": "Create conversations from World & Campaign Builder characters",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     {
       "name": "JezhikLaas"

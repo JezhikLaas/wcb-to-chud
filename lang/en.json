@@ -6,7 +6,10 @@
       "create": "Create Conversation",
       "remove": "Remove NPC",
       "invalid_type": "The entry \"{name}\" cannot be added to a conversation.",
-      "already_in_list": "The entry \"{name}\" is already in the list."
+      "already_in_list": "The entry \"{name}\" is already in the list.",
+      "list_empty": "The list is empty.",
+      "chud_not_active": "Conversation HUD is not active.",
+      "create_conversation_failed": "Conversation could not be created."
     }
   }
 }

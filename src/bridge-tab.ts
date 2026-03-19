@@ -1,4 +1,5 @@
 import { MODULE_ID } from "./constants";
+import {error, info, warn} from "./utils";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -106,8 +107,6 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
     protected override async _onRender(context: any, options: any): Promise<void> {
         await super._onRender(context, options);
 
-        console.log(`[${MODULE_ID}] Rendering abgeschlossen, binde Handler...`);
-
         if (this.dragDrop && this.element) {
             this.dragDrop.forEach((handler) => {
                 handler.bind(this.element);
@@ -116,7 +115,6 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     override async _prepareContext(_options: any): Promise<any> {
-        console.log("WCB Bridge: _prepareContext aufgerufen");
         return {
             participants: Array.from(this.participants.values()),
             hasParticipants: this.participants.size > 0
@@ -139,12 +137,9 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
         if (data.type !== "JournalEntry" || !data.fcbData) return;
 
         if (data.fcbData.topic !== 1 && data.fcbData.topic !== 4) {
-            if (game?.i18n) {
-                const warning = game.i18n.format("wcb-chud-bridge.sidebar.invalid_type", {
-                    name: data.fcbData.name
-                });
-                ui.notifications?.warn(warning);
-            }
+            warn("wcb-chud-bridge.sidebar.invalid_type", {
+                name: data.fcbData.name
+            });
 
             return;
         }
@@ -171,24 +166,25 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
         };
 
         if (this.participants.has(uuid)) {
-            ui.notifications?.info(`${participant.name} ist bereits in der Liste.`);
+            info("wcb-chud-bridge.sidebar.already_in_list", {
+                name: participant.name
+            })
             return;
         }
 
         this.participants.set(uuid, participant);
-        console.log(`[${MODULE_ID}] Added: ${participant.name} (${participant.typeName})`);
         await this.render();
     }
 
     async createConversation(): Promise<void> {
         if (this.participants.size === 0) {
-            ui.notifications?.warn("Keine Teilnehmer in der Liste.");
+            warn("wcb-chud-bridge.sidebar.list_empty");
             return;
         }
 
         const chud = (game as any).ConversationHud;
         if (!chud) {
-            ui.notifications?.error("Conversation HUD ist nicht aktiv.");
+            error("wcb-chud-bridge.sidebar.chud_not_active");
             return;
         }
 
@@ -235,7 +231,7 @@ export class WCBBridgeTab extends HandlebarsApplicationMixin(ApplicationV2) {
             }
         } catch (err) {
             console.error(`[${MODULE_ID}] Failed to create conversation:`, err);
-            ui.notifications?.error("Conversation konnte nicht erstellt werden.");
+            error("wcb-chud-bridge.create_conversation_failed");
         }
     }
 

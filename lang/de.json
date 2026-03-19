@@ -6,7 +6,10 @@
       "create": "Conversation erstellen",
       "remove": "NPC entfernen",
       "invalid_type": "Der Eintrag \"{name}\" kann nicht für eine Unterhaltung verwendet werden.",
-      "already_in_list": "Der Eintrag \"{name}\" ist bereits in der Liste."
+      "already_in_list": "Der Eintrag \"{name}\" ist bereits in der Liste.",
+      "list_empty": "Die Liste ist leer.",
+      "chud_not_active": "Conversation HUD ist nicht aktiv.",
+      "create_conversation_failed": "Konversation konnte nicht erstellt werden."
     }
   }
 }

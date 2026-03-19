@@ -42,7 +42,6 @@ Hooks.on("renderSidebar", (_app: Sidebar, html: HTMLElement, _data: any) => {
     if (container && !bridgeTab) {
         bridgeTab = new WCBBridgeTab();
         (ui as any)["wcb-bridge"] = bridgeTab;
-        console.log("WCB Bridge: Instanz erfolgreich initialisiert.");
     }
 });
 
@@ -50,7 +49,6 @@ Hooks.on("changeSidebarTab", (app: foundry.applications.api.ApplicationV2) => {
     const tabName = (app as any).tabName || app.id;
 
     if (tabName === "wcb-bridge") {
-        console.log("WCB Bridge: Tab aktiviert.");
         if (bridgeTab) {
             bridgeTab.render({ force: true });
         }
