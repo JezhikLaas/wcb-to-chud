@@ -1,3 +1,8 @@
+⚠️ DEPRECATED / NEW SUCCESSOR AVAILABLE
+This module is no longer being actively maintained. It has been succeeded by the Echoes of History.
+
+[Check out the new version here!](https://github.com/JezhikLaas/echoes-of-history)
+
 ## WCB ⮕ Conversation HUD Bridge
 A specialized bridge for Foundry VTT v13+, designed to connect your NPCs with the Conversation HUD via a dedicated, sleek sidebar interface.
 
